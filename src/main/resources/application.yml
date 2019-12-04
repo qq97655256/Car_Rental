@@ -17,3 +17,4 @@ qiniu:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: first.pojo
