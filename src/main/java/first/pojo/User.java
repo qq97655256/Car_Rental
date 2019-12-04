@@ -15,7 +15,7 @@ public class User {
     private  String tel;
     private double sal;
     private String username;
-    private  String rename;
+    private  String resname;
     private String usercard;
     private  Integer ustatus;
     private  String pass;

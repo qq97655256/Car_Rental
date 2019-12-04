@@ -15,7 +15,7 @@ public class Details {
     private  String cacard;
     private  String brand;
     private  String cartype;
-    private  Integer changer;
+    private  String changer;
     private Integer carage;
     private Integer seats;
     private  Double cc;
