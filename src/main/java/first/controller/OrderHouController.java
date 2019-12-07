@@ -4,6 +4,7 @@ import first.pojo.OrderH;
 import first.pojo.Page;
 import first.service.OrderHService;
 import first.vo.MyOrder;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +20,14 @@ import java.util.List;
 public class OrderHouController {
     @Autowired
     private OrderHService orderHService;
-
-    @RequestMapping("/all")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/all",method = RequestMethod.GET)
     public MyOrder allOrder(Page page) {//查询订单
         MyOrder myOrder = orderHService.allOrder(page);
         return myOrder;
     }
-
-    @RequestMapping("/up")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/up",method = RequestMethod.POST)
     public Integer updateByOid(@RequestBody OrderH orderH) {//立即还车
 
         Date shi = orderH.getShi();
@@ -48,35 +49,35 @@ public class OrderHouController {
         Integer ss = orderHService.updateByOid(orderH);
         return ss;
     }
-
-    @RequestMapping("/xiu")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/xiu",method = RequestMethod.POST)
     public Integer updateByOid2(@RequestBody OrderH orderH) {//修改
 
 
         return orderHService.updateByOid(orderH);
     }
-
-    @RequestMapping("/over")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/over",method = RequestMethod.POST)
     public Object over(@RequestBody OrderH orderH) {//完成订单
 
 
         return orderHService.updateByOid1(orderH);
     }
-
+    @RequiresPermissions(value = {"there"})
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public Integer del(@RequestBody OrderH orderH) {//查询订单
 
         return orderHService.delByOid(orderH.getOid());
     }
-
-    @RequestMapping("/add")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Integer add(@RequestBody OrderH orderH) {//查询订单
         //System.out.println(orderH);
 
         return orderHService.add(orderH);
     }
-
-    @RequestMapping("/findT")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/findT",method = RequestMethod.GET)
     public MyOrder findByTel(String tel) {//电话模糊查询查询订单
         tel = tel + "%";
         List<OrderH> byTel = orderHService.findByTel(tel);

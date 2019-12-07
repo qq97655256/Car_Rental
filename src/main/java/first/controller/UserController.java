@@ -36,21 +36,21 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
-    @RequestMapping("/all")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/all",method = RequestMethod.GET)
     public MyUser allUser(Page page) {// hx 后台查询全部用户
 
         return userService.all(page);
     }
-
-    @RequestMapping("/up")
+    @RequiresPermissions(value = {"there","two"})
+    @RequestMapping(value = "/up",method = RequestMethod.POST)
     public Integer updateById(@RequestBody User user/*,@RequestBody MultipartFile file*/) {// hx 后台修改用户
 
 
         return userService.updateById(user);
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Integer login(@RequestBody User user, HttpSession session) {//后台登陆
         List<Quan> quan = userService.findQuan(user.getTel());
 
@@ -74,7 +74,7 @@ public class UserController {
         return 3;
     }
 
-    @RequestMapping(value = "/login1",method = RequestMethod.POST)
+@RequestMapping(value = "/login1",method = RequestMethod.POST)
     public Integer login1(@RequestBody User user, HttpSession session) {//前台登陆
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getTel(), user.getPass());
@@ -87,7 +87,7 @@ public class UserController {
         session.setAttribute("user", one);
         return 1;
     }
-
+    @RequiresPermissions(value = {"there"})
     @RequestMapping("/rr")
     public Integer updateJue(@RequestBody User user) {//修改角色
 
@@ -134,7 +134,7 @@ public class UserController {
         return "您还未获取验证码或尚未注册";
     }
 
-    @RequestMapping("/resCode")
+    @RequestMapping(value = "/resCode",method = RequestMethod.GET)
     public Object zhuCode(String tel, String code, HttpSession session) {//验证码注册
 
         User one = userService.findOne(tel);

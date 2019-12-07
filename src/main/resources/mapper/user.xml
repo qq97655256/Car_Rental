@@ -6,15 +6,12 @@
     SELECT
 u.uid,u.tel,u.sal,u.username,u.resname,u.usercard,u.ustatus,u.pass,u.uph,u.bankcard,u.password,
 r.rid
-FROM user u, ur , role r,rq ,quan q
+FROM user u, ur , role r
 where
 u.uid=ur.uid
 and
 ur.rid=r.rid
-and
-r.rid=rq.rid
-and
-rq.qid=q.qid
+
 limit #{sart},#{size}
 </select>
     <select id="totals" resultType="user">

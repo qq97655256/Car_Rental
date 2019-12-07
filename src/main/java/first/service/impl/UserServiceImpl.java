@@ -27,10 +27,12 @@ public class UserServiceImpl implements UserService {
         Integer totals = userMapper.totals().size();
         Page page1 = MyPage.myPage1(totals, page);
         List<User> all = userMapper.all(page1);
+        System.out.println(all);
         HashSet<User> set = new HashSet<>();
         for (User u : all) {
             set.add(u);
         }
+        System.out.println(all);
         myUser.setAll(set);
         myUser.setTotals(totals);
         return myUser;
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer juese(User user) {
+    public Integer juese(User user) {//修改角色
 
         return userMapper.juese(user);
     }
