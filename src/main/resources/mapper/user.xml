@@ -3,7 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="first.dao.UserMapper">
     <select id="all" parameterType="page" resultType="user">
-    	SELECT * FROM user u, ur , role r,rq ,quan q
+    SELECT
+u.uid,u.tel,u.sal,u.username,u.resname,u.usercard,u.ustatus,u.pass,u.uph,u.bankcard,u.password,
+r.rid
+FROM user u, ur , role r,rq ,quan q
 where
 u.uid=ur.uid
 and
@@ -12,6 +15,72 @@ and
 r.rid=rq.rid
 and
 rq.qid=q.qid
-limit 0,1
+limit #{sart},#{size}
 </select>
+    <select id="totals" resultType="user">
+           select uid from user  group by uid
+</select>
+    <update id="updateById" parameterType="user">
+        update user
+        <set>
+            <if test="tel!= null">
+                tel=#{tel},
+            </if>
+            <if test="sal != null">
+                sal=#{sal},
+            </if>
+            <if test="username!= null">
+                username=#{username},
+            </if>
+            <if test="username!= null">
+                bankcard=#{bankcard},
+            </if>
+            <if test="resname!= null">
+                resname=#{resname},
+            </if>
+            <if test="usercard!= null">
+                usercard=#{usercard},
+            </if>
+            <if test="pass!= null">
+                pass=#{pass},
+            </if>
+            <if test="password!= null">
+                password=#{password},
+            </if>
+            <if test="ustatus!= null">
+                ustatus=#{ustatus},
+            </if>
+            <if test="uph!= null">
+                uph=#{uph}
+            </if>
+        </set>
+        where uid=#{uid}
+    </update>
+
+    <select id="findQuan" parameterType="string" resultType="quan">
+    SELECT q.qname
+FROM user u, ur , role r,rq ,quan q
+where
+u.uid=ur.uid
+and
+ur.rid=r.rid
+and
+r.rid=rq.rid
+and
+rq.qid=q.qid
+and
+u.tel=#{tel}
+</select>
+    <select id="findOne" parameterType="string" resultType="user">
+        select * from user where tel=#{tel}
+    </select>
+    <update id="juese" parameterType="user">
+        update ur set rid=#{rid} where uid=#{uid}
+    </update>
+    <insert id="addJue" parameterType="user">
+      insert into ur(uid,rid) values (#{uid},#{rid})
+    </insert>
+    <insert id="addUser" parameterType="user">
+      insert into user(tel,pass,ustatus) values (#{tel},#{pass},#{ustatus})
+    </insert>
 </mapper>

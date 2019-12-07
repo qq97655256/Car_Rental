@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="first.dao.OrderHouMapper">
+    <select id="allOrder" resultType="orderH" parameterType="page">
+        select
+o.oid,
+o.xia,
+o.qu,
+o.jiao,
+o.shi,
+u.tel,
+d.cacard,
+o.caid,
+d.price,
+o.yujiao,
+o.money,
+o.yong,
+o.zhuang,
+o.hao
+from order1 o, details d, user u
+where
+o.uid=u.uid
+and
+o.caid=d.caid
+ limit #{sart},#{size}
+
+    </select>
+    <select id="totals" resultType="orderH">
+       select oid from order1 GROUP BY oid
+    </select>
+    <update id="updateByOid" parameterType="orderH">
+        update order1
+        <set>
+            <if test="xia!=null">
+                xia=#{xia},
+            </if>
+            <if test="qu!=null">
+                qu=#{qu},
+            </if>
+            <if test="jiao!=null">
+                jiao=#{jiao},
+            </if>
+            <if test="shi!=null">
+                shi=#{shi},
+            </if>
+            <if test="yujiao!=null">
+                yujiao=#{yujiao},
+            </if>
+            <if test="uid!=null">
+                uid=#{uid},
+            </if>
+            <if test="caid!=null">
+                caid=#{caid},
+            </if>
+            <if test="money!=null">
+                money=#{money},
+            </if>
+            <if test="yong!=null">
+                yong=#{yong},
+            </if>
+            <if test="zhuang!=null">
+                zhuang=#{zhuang},
+            </if>
+            <if test="hao!=null">
+                hao=#{hao},
+            </if>
+        </set>
+        where oid=#{oid}
+    </update>
+
+    <delete id="delByOid" parameterType="int">
+        delete from order1 where oid=#{oid}
+    </delete>
+
+    <insert id="add" parameterType="orderH">
+        insert into order1( <include refid="key"></include> ) values (<include refid="val"></include> )
+    </insert>
+    <sql id="val">
+        <trim suffixOverrides=",">
+            <if test="xia!=null">
+                #{xia},
+            </if>
+            <if test="qu!=null">
+                #{qu},
+            </if>
+            <if test="jiao!=null">
+                #{jiao},
+            </if>
+            <if test="shi!=null">
+                #{shi},
+            </if>
+            <if test="yujiao!=null">
+                #{yujiao},
+            </if>
+            <if test="money!=null">
+                #{money},
+            </if>
+            <if test="yong!=null">
+                #{yong},
+            </if>
+            <if test="zhuang!=null">
+                #{zhuang},
+            </if>
+            <if test="hao!=null">
+                #{hao},
+            </if>
+            <if test="caid!=null">
+                #{caid},
+            </if>
+            <if test="uid!=null">
+                #{uid}
+            </if>
+        </trim>
+    </sql>
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="xia!=null">
+                xia,
+            </if>
+            <if test="qu!=null">
+                qu,
+            </if>
+            <if test="jiao!=null">
+                jiao,
+            </if>
+            <if test="shi!=null">
+                shi,
+            </if>
+            <if test="yujiao!=null">
+                yujiao,
+            </if>
+            <if test="money!=null">
+                money,
+            </if>
+            <if test="yong!=null">
+                yong,
+            </if>
+            <if test="zhuang!=null">
+                zhuang,
+            </if>
+            <if test="hao!=null">
+                hao,
+            </if>
+            <if test="caid!=null">
+                caid,
+            </if>
+            <if test="uid!=null">
+                uid
+            </if>
+        </trim>
+    </sql>
+    <select id="findByTel" resultType="orderH" parameterType="string">
+        select
+o.oid,
+o.xia,
+o.qu,
+o.jiao,
+o.shi,
+u.tel,
+d.cacard,
+o.caid,
+d.price,
+o.yujiao,
+o.money,
+o.yong,
+o.zhuang,
+o.hao
+from order1 o, details d, user u
+where
+o.uid=u.uid
+and
+o.caid=d.caid
+ and u.tel like #{tel}
+    </select>
+    <select id="findByOid" resultType="orderH" parameterType="string">
+        select
+o.oid,
+o.xia,
+o.qu,
+o.jiao,
+o.shi,
+u.tel,
+d.cacard,
+o.caid,
+d.price,
+o.yujiao,
+o.money,
+o.yong,
+o.zhuang,
+o.hao
+from order1 o, details d, user u
+where
+o.uid=u.uid
+and
+o.caid=d.caid
+ and o.oid like #{oid}
+    </select>
+</mapper>

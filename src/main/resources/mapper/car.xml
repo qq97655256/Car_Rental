@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="first.dao.CarMapper">
+    <select id="allCar" parameterType="page" resultType="car">
+select a.pname,u.tel, d.caid,d.caname,
+d.cacard,d.brand,d.cartype,d.changer,
+d.carage,d.seats,d.cc,d.power,d.price,
+d.cardate,d.pingfen,d.youxing,d.carwight,
+d.daoche,d.tianchuang, d.jilu,d.xianxing,
+d.jiaoche,d.jiedan,d.miaoshu,d.zuci,d.guo,
+d.make,d.dplace,d.xingshi,d.isrent,d.zutype,d.pid
+from user u,area a,details d
+where u.uid=d.uid
+and a.pid= d.pid limit #{sart},#{size}
+ </select>
+    <select id="totals" parameterType="page" resultType="car">
+      select caid from  details group by caid
+    </select>
+    <update id="updateByCaid" parameterType="car">
+        update details
+        <set>
+            <if test="uid!=null">
+                uid=#{uid},
+            </if>
+            <if test="dplace!=null">
+                dplace=#{dplace},
+            </if>
+            <if test="pid!=null">
+                pid=#{pid},
+            </if>
+            <if test="zutype!=null">
+                zutype=#{zutype},
+            </if>
+            <if test="zutype!=null">
+                zutype=#{zutype},
+            </if>
+        </set>
+        where caid=#{caid}
+    </update>
+    <delete id="delByCaid" parameterType="int">
+        delete from details where caid=#{caid}
+    </delete>
+    <select id="findOneByTel" parameterType="car" resultType="car">
+        select a.pname,u.tel,u.uid,d.caid,d.caname,
+        d.cacard,d.brand,d.cartype,d.changer,u.sal,
+        d.carage,d.seats,d.cc,d.power,d.price,
+        d.cardate,d.pingfen,d.youxing,d.carwight,
+        d.daoche,d.tianchuang, d.jilu,d.xianxing,
+        d.jiaoche,d.jiedan,d.miaoshu,d.zuci,d.guo,
+        d.make,d.dplace,d.xingshi,d.isrent,d.zutype
+        from user u,area a,details d
+        where u.uid=d.uid
+        and a.pid= d.pid
+        and
+        <include refid="cc"></include>
+
+    </select>
+    <sql id="cc">
+        <trim prefixOverrides="and">
+            <if test="tel!=null">
+                u.tel=#{tel}
+            </if>
+            <if test="cacard!=null">
+                and d.cacard=#{cacard}
+            </if>
+            <if test="caid!=null">
+                and d.caid=#{caid}
+            </if>
+
+        </trim>
+    </sql>
+</mapper>
