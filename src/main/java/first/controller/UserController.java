@@ -36,13 +36,13 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public MyUser allUser(Page page) {// hx 后台查询全部用户
 
         return userService.all(page);
     }
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/up",method = RequestMethod.POST)
     public Integer updateById(@RequestBody User user/*,@RequestBody MultipartFile file*/) {// hx 后台修改用户
 
@@ -85,6 +85,11 @@ public class UserController {
         }
         User one = userService.findOne(user.getTel());
         session.setAttribute("user", one);
+    Object user1 = session.getAttribute("user");
+    if (user1 instanceof User){
+        User user2=(User) user1;
+        System.out.println(user2.getUid()+"+++++++++++++++++++++++++++++");
+    }
         return 1;
     }
     @RequiresPermissions(value = {"there"})

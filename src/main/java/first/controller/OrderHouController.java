@@ -20,13 +20,13 @@ import java.util.List;
 public class OrderHouController {
     @Autowired
     private OrderHService orderHService;
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public MyOrder allOrder(Page page) {//查询订单
         MyOrder myOrder = orderHService.allOrder(page);
         return myOrder;
     }
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/up",method = RequestMethod.POST)
     public Integer updateByOid(@RequestBody OrderH orderH) {//立即还车
 
@@ -49,14 +49,14 @@ public class OrderHouController {
         Integer ss = orderHService.updateByOid(orderH);
         return ss;
     }
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/xiu",method = RequestMethod.POST)
     public Integer updateByOid2(@RequestBody OrderH orderH) {//修改
 
 
         return orderHService.updateByOid(orderH);
     }
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/over",method = RequestMethod.POST)
     public Object over(@RequestBody OrderH orderH) {//完成订单
 
@@ -69,14 +69,14 @@ public class OrderHouController {
 
         return orderHService.delByOid(orderH.getOid());
     }
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Integer add(@RequestBody OrderH orderH) {//查询订单
         //System.out.println(orderH);
 
         return orderHService.add(orderH);
     }
-    @RequiresPermissions(value = {"there","two"})
+    @RequiresPermissions(value = {"two"})
     @RequestMapping(value = "/findT",method = RequestMethod.GET)
     public MyOrder findByTel(String tel) {//电话模糊查询查询订单
         tel = tel + "%";

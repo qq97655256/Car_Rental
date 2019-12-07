@@ -24,7 +24,7 @@ public class CenterController {
     public User1 personalCenter(HttpServletRequest request){
 
         User userr = (User)request.getSession().getAttribute("user");
-
+        System.out.println(userr.getUid());
         User1 loginuser=centerService.findone(userr.getUid());
         System.out.println(loginuser);
         return loginuser;
