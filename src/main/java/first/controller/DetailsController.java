@@ -2,6 +2,7 @@ package first.controller;
 
 import first.pojo.Details;
 import first.pojo.Tu;
+import first.pojo.User;
 import first.service.DetailsService;
 import first.utils.UploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,12 +24,18 @@ private String url;
 
 //点击提交
 @RequestMapping("/InsertDetails")
-    public String InsertDetails(@RequestBody Details details){
-    try{
-        detailsService.UpdateById(details);
-        return "提交成功";
-    }catch (Exception e){
-        e.printStackTrace();
+    public String InsertDetails(@RequestBody Details details, HttpServletRequest request){
+    Object user = request.getSession().getAttribute("user");
+    if (user instanceof User){
+        User user1=(User) user;
+        System.out.println(user1.getUid());
+        try{
+            details.setUid(user1.getUid());
+            detailsService.UpdateById(details);
+            return "提交成功";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     return "提交失败";
 }

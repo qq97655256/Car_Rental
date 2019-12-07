@@ -1,6 +1,7 @@
 package first.service;
 
 import first.pojo.Details;
+import first.pojo.User1;
 import first.response.DetailsResponse;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface DetailsService {
     Integer UpdateById(Details details);
 
     void quxiao(Integer caid);
+
+    User1 SelectResNameByUid(Integer uid);
 }

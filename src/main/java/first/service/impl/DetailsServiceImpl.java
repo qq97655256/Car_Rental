@@ -2,6 +2,7 @@ package first.service.impl;
 
 import first.dao.DetailsMapper;
 import first.pojo.Details;
+import first.pojo.User1;
 import first.repository.Details2Repository;
 import first.response.DetailsResponse;
 import first.service.DetailsService;
@@ -89,5 +90,10 @@ public class DetailsServiceImpl implements DetailsService {
     @Override
     public void quxiao(Integer caid) {
         detailsRepository.deleteById(caid);
+    }
+
+    @Override
+    public User1 SelectResNameByUid(Integer uid) {
+        return detailsMapper.SelectResNameByUid(uid);
     }
 }
