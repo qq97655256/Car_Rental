@@ -45,7 +45,7 @@ public class Details {
     private  Integer zuci;
     private String guo;
     private String make;
-    private String dplace;
+    private String dpalce;
     private Double xingshi;
     private Integer isrent;
     private String zutype;

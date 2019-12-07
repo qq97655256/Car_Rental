@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="first.dao.DetailsMapper">
+    <select id="SelectCarName" resultType="first.pojo.Details">
+        select caname from details limit 11
+    </select>
+    <select id="SelectCarByName" resultType="first.pojo.Details" parameterType="String">
+        SELECT d.caname,d.cacard,d.price,d.ph1 FROM details d,area a WHERE a.pid=d.pid AND a.pname=#{pname}
+    </select>
+    <select id="SelectBrand" parameterType="String" resultType="first.pojo.Details">
+        select caname,cacard,price,ph1 from details where brand=#{rname}
+    </select>
+    <select id="SelectHot" parameterType="String" resultType="first.pojo.Details">
+        select caname,cacard,price,ph1 from details where caname=#{caname}
+    </select>
+    <select id="SelectByMoney" resultType="first.pojo.Details">
+        SELECT caname,cacard,price,ph1 FROM details ORDER BY price DESC LIMIT 8
+    </select>
+    <select id="SelectByMoney2" resultType="first.pojo.Details">
+        SELECT caname,cacard,price,ph1 FROM details ORDER BY price asc LIMIT 8
+    </select>
+    <select id="SelectByZuCi" resultType="first.pojo.Details">
+         SELECT caname,cacard,price,ph1 FROM details ORDER BY zuci DESC LIMIT 8
+    </select>
+    <insert id="InsertDetails" parameterType="first.pojo.Details">
+        insert into details(brand,cartype,make,caname,cacard,carage,seats,cc,price,carwight,daoche,tianchuang,jilu,guo,dplace,ph1,ph2,ph3,ph4,ph5,ph6) values (#{brand},#{cartype},#{make},#{caname},#{cacard},#{carage},#{seats},#{cc},#{price},#{carwight},#{daoche},#{tianchuang},#{jilu},#{guo},#{dpalce},#{ph1},#{ph2},#{ph3},#{ph4},#{ph5},#{ph6})
+    </insert>
+    <select id="SelectId" resultType="first.pojo.Details" parameterType="String">
+        select * from details where ph1=#{pic}
+    </select>
+    <update id="UpdateById" parameterType="first.pojo.Details">
+        update details
+        <set>
+            <trim suffixOverrides=",">
+                <if test="brand!=null">
+                    brand=#{brand},
+                </if>
+                <if test="cartype!=null">
+                    cartype=#{cartype},
+                </if>
+                <if test="make!=null">
+                    make=#{make},
+                </if>
+                <if test="caname!=null">
+                    caname=#{caname},
+                </if>
+                <if test="cacard!=null">
+                    cacard=#{cacard},
+                </if>
+                <if test="carage!=null">
+                    carage=#{carage},
+                </if>
+                <if test="seats!=null">
+                    seats=#{seats},
+                </if>
+                <if test="cc!=null">
+                    cc=#{cc},
+                </if>
+                <if test="cartype!=null">
+                    cartype=#{cartype},
+                </if>
+                <if test="price!=null">
+                    price=#{price},
+                </if>
+                <if test="carwight!=null">
+                    carwight=#{carwight},
+                </if>
+                <if test="daoche!=null">
+                    daoche=#{daoche},
+                </if>
+                <if test="tianchuang!=null">
+                    tianchuang=#{tianchuang},
+                </if>
+                <if test="jilu!=null">
+                    jilu=#{jilu},
+                </if>
+                <if test="guo!=null">
+                    guo=#{guo},
+                </if>
+                <if test="dpalce!=null">
+                    dplace=#{dpalce},
+                </if>
+                <if test="ph1!=null">
+                    ph1=#{ph1},
+                </if>
+                <if test="ph2!=null">
+                    ph2=#{ph2},
+                </if>
+                <if test="ph3!=null">
+                    ph3=#{ph3}
+                </if>
+                <if test="ph4!=null">
+                    ph4=#{ph4},
+                </if>
+                <if test="ph5!=null">
+                    ph5=#{ph5},
+                </if>
+                <if test="ph6!=null">
+                    ph6=#{ph6},
+                </if>
+            </trim>
+        </set>
+        where caid=#{caid}
+    </update>
+</mapper>
