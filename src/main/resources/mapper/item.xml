@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="first.dao.ItemMapper">
+
+<select id="itemall"  parameterType="ItemDetails" resultType="ItemDetails">
+  select d1.caname,d1.cacard,o1.xia,o1.qu,o1.money,o1.yong,o1.uid,o1.oid,o1.delete1,o1.zhuang  from details d1,order1 o1,user u1 where d1.caid=o1.caid and o1.uid=u1.uid and u1.uid=#{uid} and o1.delete1=1
+</select>
+
+  <delete id="Itemdelete" parameterType="ItemDetails">
+    update order1 set delete1=0 where oid=#{oid} and zhuang=3
+  </delete>
+</mapper>
