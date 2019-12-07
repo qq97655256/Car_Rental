@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Component
 public class AlipayUtils {
-    public String pay() throws AlipayApiException {
+    public String pay(Od d) throws AlipayApiException {
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", "utf-8", AlipayConfig.alipay_public_key, "RSA2");
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
         alipayRequest.setReturnUrl(AlipayConfig.return_url);
@@ -31,8 +31,8 @@ public class AlipayUtils {
         alipayRequest.setBizContent("{" +
                 "    \"out_trade_no\":\""+out_trade_no+"\"," +
                 "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
-                "    \"total_amount\":88.88," +
-                "    \"subject\":\"Iphone6 16G\"," +
+                "    \"total_amount\":"+d.getPrice()+"," +
+                "    \"subject\":\""+d.getCaname()+"\"," +
                 "    \"body\":\"Iphone6 16G\"," +
                 "    \"passback_params\":\"merchantBizType%3d3C%26merchantBizNo%3d2016010101111\"," +
                 "    \"extend_params\":{" +

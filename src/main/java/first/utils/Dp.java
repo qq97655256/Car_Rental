@@ -9,4 +9,5 @@ import java.util.List;
 public class Dp {
     private List<String> list;
     private Details details;
+    private  List<Details>delist;
 }

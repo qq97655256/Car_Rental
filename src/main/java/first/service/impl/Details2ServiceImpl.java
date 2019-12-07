@@ -2,14 +2,14 @@ package first.service.impl;
 
 import first.pojo.Details;
 import first.repository.DetailsRepository;
-import first.service.DetailsService;
+import first.service.Details2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class DetailsServiceImpl implements DetailsService {
+public class Details2ServiceImpl implements Details2Service {
     @Autowired
     private DetailsRepository dr;
     @Override

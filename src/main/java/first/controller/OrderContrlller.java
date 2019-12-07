@@ -9,17 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
-
 @RestController
 @RequestMapping("/order")
 public class OrderContrlller {
     @Autowired
     private OrderService os;
-
     @RequestMapping("/count")
     public Time count(@RequestBody Od od) {
         Date qu = od.getQu();
@@ -39,7 +36,7 @@ public class OrderContrlller {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@RequestBody Order od) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date parse = sf.parse(sf.format(new Date()));
             od.setXia(parse);
@@ -48,8 +45,11 @@ public class OrderContrlller {
         }
         od.setZhuang(1);
         od.setUid(1);
-        System.out.println(od);
-        os.add(od);
-        return "yes";
+        od.setDelete1(1);
+        int add = os.add(od);
+        if (add==1){
+            return  "yes";
+        }
+        return "no";
     }
 }
