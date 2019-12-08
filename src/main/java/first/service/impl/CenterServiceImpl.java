@@ -81,5 +81,16 @@ public class CenterServiceImpl implements CenterService {
         return "删除成功";
     }
 
+    @Override
+    public String updatesal(Integer num ,Integer uid) {
+
+        int i=centerMapper.updatesal(Double.valueOf(num),uid);
+
+        System.out.println(i);
+        if(i==1)
+            return "充值成功";
+        return "充值失败";
+    }
+
 }
 

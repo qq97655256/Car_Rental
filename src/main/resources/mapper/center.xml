@@ -24,4 +24,10 @@
 
     </update>
 
+    <update id="updatesal">
+
+        update  user set sal=#{sal}+sal where uid=#{uid}
+
+    </update>
+
 </mapper>

@@ -18,4 +18,6 @@ public interface CenterService {
     List<Details> findmycar(Integer uid);
 
     String deletecar(Integer caid);
+
+    String updatesal(Integer num,Integer uid);
 }

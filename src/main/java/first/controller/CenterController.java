@@ -4,9 +4,12 @@ import first.pojo.Details;
 import first.pojo.User;
 import first.pojo.User1;
 import first.service.CenterService;
+import first.utils.UploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -19,6 +22,12 @@ public class CenterController {
 
     @Autowired
     CenterService centerService;
+    @Value("${qiniu.url}")
+    private  String url;
+
+    @Autowired
+    private UploadUtils up;
+
 
     @RequestMapping(value = "/personalCenter",method = RequestMethod.POST)
     public User1 personalCenter(HttpServletRequest request){
@@ -60,4 +69,20 @@ public class CenterController {
         return centerService.deletecar(caid);
     }
 
+    @RequestMapping("/addmoney/{num}/{uid}")
+    public String addmoney(@PathVariable("num")Integer num,@PathVariable("uid")Integer uid){
+
+        System.out.println(num);
+        return centerService.updatesal(num,uid);
+    }
+    @RequestMapping("/updatemess1")
+    public String updatemess1(@RequestBody User user,@RequestParam("file") MultipartFile muli){
+        System.out.println(user);
+        System.out.println(muli);
+
+        String upload = up.upload(muli);
+        user.setUph(url+upload);
+
+        return centerService.updatemess(user);
+    }
 }
